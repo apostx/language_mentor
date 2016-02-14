@@ -1,0 +1,7 @@
+<div ng-cloak>
+	<div ng-if="!isProgress" layout="column" >
+		<div ng-repeat="collectionInfo in collectionList" padding class="data-row collection-color margin md-whiteframe-z1 md-title" ng-click="openCollection(collectionInfo.id)">
+			{{collectionInfo.title}}
+		</div>
+	</div>
+</div>

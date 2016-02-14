@@ -1,0 +1,31 @@
+<div layout="row" layout-align="center center" flex ng-cloak>
+	<md-button class="md-icon-button" aria-label="Previous group" ng-click="prevGroup()" ng-disabled="isProgress">
+		<md-icon class="material-icons md-hide md-24">
+			skip_previous
+		</md-icon>
+	</md-button>
+	<md-button class="number-display md-subhead" label="Switch extended group" ng-click="switchExpandedGroup()" ng-disabled="isProgress">
+		{{groupStartIndex}}-{{groupEndIndex}} [{{collectionLength}}]
+	</md-button>
+	<md-button class="md-icon-button" aria-label="Next group" ng-click="nextGroup()" ng-disabled="isProgress">
+		<md-icon class="material-icons md-hide md-24">
+			skip_next
+		</md-icon>
+	</md-button>
+	<md-button class="md-icon-button" aria-label="Next" ng-click="next()" ng-disabled="isProgress">
+		<md-icon class="material-icons md-hide md-24">
+			play_arrow
+		</md-icon>
+	</md-button>
+	<md-button class="md-icon-button" aria-label="Shuffle collection" ng-click="shuffle()" ng-disabled="isProgress">
+		<md-icon class="material-icons md-hide md-24">
+			shuffle
+		</md-icon>
+	</md-button>
+
+	<md-button class="md-icon-button" aria-label="Close collection" ng-click="close()" ng-disabled="isProgress">
+		<md-icon class="material-icons md-hide md-24">
+			stop
+		</md-icon>
+	</md-button>
+</div>

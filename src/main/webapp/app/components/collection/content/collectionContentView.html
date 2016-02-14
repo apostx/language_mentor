@@ -1,0 +1,12 @@
+<div ng-controller="translationController" ng-cloak>
+	<div ng-if="translationData && !isProgress" layout="column">
+		<phrase data="translationData.sourcePhrase" class="data-row source-phrase-color margin padding md-whiteframe-z1 md-title"></phrase>
+		<div ng-if="isShowTranslation" ng-repeat="translation in translationData.translationList" layout="column" class="data-row target-phrase-color margin md-whiteframe-z1 md-title">
+			<phrase data="translation.targetPhrase" class="padding md-title"></phrase>
+			<div ng-if="translation.sourceExamplePhrase && translation.targetExamplePhrase">
+				<phrase data="translation.sourceExamplePhrase" class="source-example-color padding md-title"></phrase>
+				<phrase data="translation.targetExamplePhrase" class="target-example-color padding md-title"></phrase>
+			</div>
+		</div>
+	</div>
+</div>
