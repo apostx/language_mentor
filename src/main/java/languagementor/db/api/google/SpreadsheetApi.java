@@ -60,17 +60,15 @@ public class SpreadsheetApi implements IApi {
 	}
 
 	public ICollectionData getCollection(String collectionId) throws Exception {
-		Logger logger = Logger.getLogger(SpreadsheetApi.class.getName());
-		logger.log(Level.SEVERE, "itt valami?????");
 		_service.setHeader("Authorization", "Bearer " + _tokenManager.getAccessToken());
 		SpreadsheetEntry spreadsheet = _service.getEntry(_entryURL, SpreadsheetEntry.class);
 		List<WorksheetEntry> worksheetEntryList = spreadsheet.getWorksheets();
 
 		String collectionTitle = null;
-		
+
 		for(WorksheetEntry worksheetEntry : worksheetEntryList) {
 			collectionTitle = worksheetEntry.getTitle().getPlainText();
-			logger.log(Level.SEVERE, "{0} {1} {2}", new Object[]{collectionTitle, DigestUtils.md5Hex(collectionTitle), collectionId});
+
 			if(DigestUtils.md5Hex(collectionTitle).equals(collectionId)) {
 				List<PhraseTranslationData> collection = getPhraseList(worksheetEntry.getCellFeedUrl());
 

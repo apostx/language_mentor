@@ -11,28 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class LanguageController {
+public class ServiceController {
 
 	@Autowired
 	@Qualifier("databaseApi")
 	private IApi _databaseApi;
-	
-	@RequestMapping(value="/{collectionId}", method=RequestMethod.GET)
-	public String collection(@PathVariable String collectionId) {
-		return "redirect:/#/" + collectionId;
-	}
 
-	@RequestMapping(value="/service.json", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value = "/service.json", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String collectionListService() throws Exception {
-		Gson gson=new Gson();
+		Gson gson = new Gson();
 		return gson.toJson(_databaseApi.getCollectionList());
 	}
 
-	@RequestMapping(value="/{collectionId}/service.json", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value = "/{collectionId:[a-z0-9]{32}}/service.json", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String collectionService(@PathVariable String collectionId) throws Exception {
-		Gson gson=new Gson();
+		Gson gson = new Gson();
 		return gson.toJson(_databaseApi.getCollection(collectionId));
 	}
 }

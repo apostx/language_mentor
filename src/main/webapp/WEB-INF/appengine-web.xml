@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <application>language-mentor-1133</application>
-    <version>1</version>
-    <!--    <ssl-enabled>false</ssl-enabled>
-    <sessions-enabled>true</sessions-enabled>
-    -->
-    <threadsafe>true</threadsafe>
+	<application>language-mentor-1133</application>
+	<version>1</version>
+	<threadsafe>true</threadsafe>
+	<static-files>
+		<include path="/index.html" />
+		<include path="/app/**.js" />
+		<include path="/app/**.html" />
+		<include path="/assets/css/**.css" />
+		<include path="/assets/img/**.jpg" />
+		<include path="/assets/img/**.png" />
+		<include path="/assets/img/**.svg" />
+	</static-files>
 </appengine-web-app>

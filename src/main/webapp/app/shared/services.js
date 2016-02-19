@@ -1,10 +1,10 @@
-(function(){
+(function() {
 	angular.module('app')
-		.service('utils', function(){
-			this.unsubscribeAtDestroy = function(scope, unsubscribeCallbackListGenerator){
+		.service('destroyService', function() {
+			this.manageUnsubscribeCallbacks = function(scope, unsubscribeCallbackListGenerator) {
 				var unsubscribeCallbackList = unsubscribeCallbackListGenerator();
 
-				scope.$on('$destroy', function(){
+				scope.$on('$destroy', function() {
 					var length = unsubscribeCallbackList.length;
 
 					for(var i = 0; i < length; ++i)
@@ -13,46 +13,68 @@
 			};
 		})
 
-		.service('dialogService', function($mdDialog){
-			this.alert = function(title, okTitle, okCallback){
-				var alert = $mdDialog.alert()
-					.title(title)
-					.ok(okTitle);
+		.service('documentEventService', [
+			'$document',
+			function($document) {
+				this.on = function(eventType, handler) {
+					$document.bind(eventType, handler);
 
-				$mdDialog.show(alert).finally(okCallback);
-			};
+					return function() {
+						$document.unbind(eventType, handler);
+					};
+				};
+			}
+		])
 
-			this.confirm = function(title, okTitle, cancelTitle, okCallback, cancelCallback){
-				var confirm = $mdDialog.confirm()
-					.title(title)
-					.ok(okTitle)
-					.cancel(cancelTitle);
+		.service('dialogService', [
+			'$mdDialog',
+			function($mdDialog) {
+				this.alert = function(title, okTitle, okCallback) {
+					var alert = $mdDialog.alert()
+						.title(title)
+						.ok(okTitle);
 
-				$mdDialog.show(confirm).then(okCallback, cancelCallback);
-			};
-		})
+					$mdDialog.show(alert).finally(okCallback);
+				};
 
-		.service('siteNavigationService', function($state){
-			this.gotoCollectionListPage = function(){
-				$state.go('collectionList');
-			};
+				this.confirm = function(title, okTitle, cancelTitle, okCallback, cancelCallback) {
+					var confirm = $mdDialog.confirm()
+						.title(title)
+						.ok(okTitle)
+						.cancel(cancelTitle);
 
-			this.gotoCollectionPage = function(collectionId){
-				$state.go('collection', {
-					collectionId: collectionId
-				});
-			};
-		})
+					$mdDialog.show(confirm).then(okCallback, cancelCallback);
+				};
+			}
+		])
 
-		.service('dataService', function($http){
-			this.getCollectionList = function(successCallback, errorCallback){
-				$http.get('service.json')
-					.then(successCallback, errorCallback);
-			};
+		.service('siteNavigationService', [
+			'$state',
+			function($state) {
+				this.gotoCollectionListPage = function() {
+					$state.go('collectionList');
+				};
 
-			this.getCollection = function(collectionId, successCallback, errorCallback){
-				$http.get(''.concat(collectionId, '/service.json'))
-					.then(successCallback, errorCallback);
-			};
-		});
+				this.gotoCollectionPage = function(collectionId) {
+					$state.go('collection', {
+						collectionId: collectionId
+					});
+				};
+			}
+		])
+
+		.service('dataService', [
+			'$http',
+			function($http) {
+				this.getCollectionList = function(successCallback, errorCallback) {
+					$http.get('service.json')
+						.then(successCallback, errorCallback);
+				};
+
+				this.getCollection = function(collectionId, successCallback, errorCallback) {
+					$http.get(''.concat(collectionId, '/service.json'))
+						.then(successCallback, errorCallback);
+				};
+			}
+		]);
 })();

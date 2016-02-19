@@ -1,15 +1,18 @@
-(function(){
+(function() {
 	angular.module('app')
-		.controller('frameController', function($scope, $rootScope){
-			$scope.header = null;
-			$scope.footer = null;
+		.controller('frameController', [
+			'$scope', '$rootScope',
+			function($scope, $rootScope) {
+				$scope.header = null;
+				$scope.footer = null;
 
-			$rootScope.$on('changeHeader', function(event, content){
-				$scope.header = content;
-			});
+				$rootScope.$on('changeHeader', function(event, content) {
+					$scope.header = content;
+				});
 
-			$rootScope.$on('changeFooter', function(event, content){
-				$scope.footer = content;
-			});
-		});
+				$rootScope.$on('changeFooter', function(event, content) {
+					$scope.footer = content;
+				});
+			}
+		]);
 })();

@@ -1,6 +1,6 @@
-(function(){
+(function() {
 	angular.module('app')
-		.directive('phrase', function(){
+		.directive('phrase', function() {
 			return {
 				restrict: 'E',
 				scope: true,

@@ -8,7 +8,7 @@ public class CollectionInfo implements ICollectionInfo {
 
 	@SerializedName("id")
 	private final String _id;
-	
+
 	@SerializedName("title")
 	private final String _title;
 
